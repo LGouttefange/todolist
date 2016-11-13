@@ -48,4 +48,13 @@ public class ProgressUtilTest extends AbstractServiceTest {
         assertEquals(50, ProgressUtil.advancementRatioAsPercent(BASE_DATE,BASE_DATE_PLUS_TWO_DAYS, BASE_DATE_PLUS_FOUR_DAYS));
     }
 
+    @Test
+    public void testNegativeProgressEqualsZero(){
+        assertEquals(0, ProgressUtil.advancementRatioAsPercent(BASE_DATE, BASE_DATE_MINUS_TWO_DAYS, BASE_DATE_PLUS_TWO_DAYS));
+    }
+
+    @Test
+    public void testProgressOverflowEqualsOne(){
+        assertEquals(100, ProgressUtil.advancementRatioAsPercent(BASE_DATE, BASE_DATE_PLUS_FOUR_DAYS, BASE_DATE_PLUS_TWO_DAYS));
+    }
 }
