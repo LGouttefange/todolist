@@ -6,13 +6,13 @@
         <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
         <ul class="right hide-on-med-and-down">
             <li><a href="<c:url value="/categories"/>">Categories</a></li>
-            <li><a href="<c:url value="/tasks/get"/>">Tâches</a></li>
-            <li><a href="<c:url value="/tasks/get/user"/>">Tâches d'un utilisateur</a></li>
+            <li><a href="<c:url value="/tasks"/>">Tâches</a></li>
+            <li><a href="<c:url value="/tasks/user"/>">Tâches d'un utilisateur</a></li>
         </ul>
         <ul class="side-nav" id="mobile-demo">
             <li><a href="<c:url value="/categories"/>">Categories</a></li>
-            <li><a href="<c:url value="/tasks/get"/>">Tâches</a></li>
-            <li><a href="<c:url value="/tasks/get/user"/>">Tâches d'un utilisateur</a></li>
+            <li><a href="<c:url value="/tasks/"/>">Tâches</a></li>
+            <li><a href="<c:url value="/tasks/user"/>">Tâches d'un utilisateur</a></li>
         </ul>
     </div>
 </nav>

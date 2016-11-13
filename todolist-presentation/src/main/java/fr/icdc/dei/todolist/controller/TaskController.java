@@ -22,21 +22,21 @@ public class TaskController {
     private Date beginningDate;
     private Date endingDate;
 
-    @RequestMapping(value = {"/get", "/"}, method = RequestMethod.GET)
+    @RequestMapping(value = { "/"}, method = RequestMethod.GET)
     public ModelAndView listTasks() {
         ModelAndView page = new ModelAndView("Tasks/List");
         page.addObject("tasks", taskService.list());
         return page;
     }
 
-    @RequestMapping(value = "/get/user", method = RequestMethod.GET)
+    @RequestMapping(value = "/user", method = RequestMethod.GET)
     public ModelAndView formChooseUser() {
         ModelAndView page = new ModelAndView("Tasks/formChooseUser");
         page.addObject("users", userDao.findAll());
         return page;
     }
 
-    @RequestMapping(value = "/get/user", method = RequestMethod.POST)
+    @RequestMapping(value = "/user", method = RequestMethod.POST)
     private ModelAndView listTasksOfUserEndingInPeriod(@RequestParam long userId, @RequestParam Date beginningDate, @RequestParam Date endingDate) {
         this.beginningDate = beginningDate;
         this.endingDate = endingDate;
@@ -47,10 +47,10 @@ public class TaskController {
         return page;
     }
 
-    @RequestMapping(value = "/get/user-finishTasks/{userId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/user/finishTasks/{userId}", method = RequestMethod.POST)
     private ModelAndView finishAllTasksOfSelectedUserEndingInPeriod(@PathVariable long userId) {
         taskService.finishTasksOfUserEndingInPeriod(userId, beginningDate, endingDate);
-        return new ModelAndView("redirect:" + "../user");
+        return new ModelAndView("redirect:" + "../../user");
 
     }
 
