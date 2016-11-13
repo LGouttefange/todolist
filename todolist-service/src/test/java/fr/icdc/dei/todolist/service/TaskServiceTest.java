@@ -19,12 +19,11 @@ public class TaskServiceTest extends AbstractServiceTest {
 
     private final static Task task = new Task();
     private final static User user = new UserFree();
-    private static final long ID_USER_WITH_UNFINISHED_TASKS = 1L;
-    private static final long ID_USER_WITH_TASKS_TO_FINISH = 3L;
-    public static final long ID_USER_TEST_TASKS_IN_PERIOD = 4L;
-    public static final Task TASK_IN_DATE_PERIOD = new Task();
-    private static  Date BEGINNING_DATE_OF_PERIOD;
-    private static  Date ENDING_DATE_OF_PERIOD ;
+    private static final long ID_USER_WITH_TASKS_TO_FINISH = 4L;
+    private static final long ID_USER_TEST_TASKS_IN_PERIOD = 3L;
+    private static final Task TASK_IN_DATE_PERIOD = new Task();
+    private static Date BEGINNING_DATE_OF_PERIOD;
+    private static Date ENDING_DATE_OF_PERIOD;
 
 
     @Autowired
@@ -38,14 +37,14 @@ public class TaskServiceTest extends AbstractServiceTest {
 
         TASK_IN_DATE_PERIOD.setId(10L);
 
-        Calendar calendar =  Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance();
         initBeginningDateOfPeriod(calendar);
 
         initEndingDateOfPeriod(calendar);
     }
 
     private static void initEndingDateOfPeriod(Calendar calendar) {
-        calendar.set(2016,10,30);
+        calendar.set(2016, 10, 30);
         ENDING_DATE_OF_PERIOD = calendar.getTime();
     }
 
@@ -66,34 +65,28 @@ public class TaskServiceTest extends AbstractServiceTest {
     }
 
     @Test
-    public void testListUnfinishedTasksAreAllUnfinished() {
-        for (Task task :
-                taskService.listUnfinishedTasksOfUser(ID_USER_WITH_UNFINISHED_TASKS)) {
-            assertNull( task.getEndingDate() );
+    public void testListUnfinishedTasksInDatePeriodDifferentThanUnfinishedTasksList() {
+        assertNotEquals(taskService.listUnfinishedTasksOfUserEndingInPeriod(ID_USER_TEST_TASKS_IN_PERIOD, BEGINNING_DATE_OF_PERIOD, ENDING_DATE_OF_PERIOD).size(),
+                taskService.listUnfinishedTasksOfUser(ID_USER_TEST_TASKS_IN_PERIOD).size());
+    }
+
+    @Test
+    public void testAllTasksEndingInPeriodTasksAreFinished() {
+        for (Task task : taskService.listUnfinishedTasksOfUserEndingInPeriod(ID_USER_TEST_TASKS_IN_PERIOD, BEGINNING_DATE_OF_PERIOD, ENDING_DATE_OF_PERIOD)) {
+            assertNull(task.getEndingDate());
         }
     }
 
+
     @Test
-    public void testUserHasFinishedTasks(){
-        assertFalse(taskService.listUnfinishedTasksOfUser(ID_USER_WITH_UNFINISHED_TASKS).isEmpty());
+    public void testFinishAllTasksEndingInPeriodUserHasTasks(){
+        assertNotEquals(0, taskService.listUnfinishedTasksOfUserEndingInPeriod(ID_USER_WITH_TASKS_TO_FINISH, BEGINNING_DATE_OF_PERIOD, ENDING_DATE_OF_PERIOD).size());
     }
 
     @Test
-    public void testListUnfinishedTasksDifferentThanListTasks() {
-        assertNotEquals(taskService.listByUser(ID_USER_WITH_UNFINISHED_TASKS).size(), taskService.listUnfinishedTasksOfUser(ID_USER_WITH_UNFINISHED_TASKS).size());
-    }
-    
-    @Test
-    public void testAfterFinishAllTasksOfUserAllTasksAreFinished(){
-        taskService.finishAllTasksOfUser(ID_USER_WITH_TASKS_TO_FINISH);
-        assertTrue(taskService.listUnfinishedTasksOfUser(ID_USER_WITH_TASKS_TO_FINISH).isEmpty());
-    }
-
-
-    @Test
-    public void testListUnfinishedTasksInDatePeriodDifferentThanUnfinishedTasksList(){
-        assertNotEquals(taskService.listUnfinishedTasksOfUserInPeriod(ID_USER_TEST_TASKS_IN_PERIOD, BEGINNING_DATE_OF_PERIOD,ENDING_DATE_OF_PERIOD).size(),
-                        taskService.listUnfinishedTasksOfUser(ID_USER_TEST_TASKS_IN_PERIOD).size());
+    public void testFinishAllTasksEndingInPeriodTasksAreFinished(){
+        taskService.finishTasksOfUserEndingInPeriod(ID_USER_WITH_TASKS_TO_FINISH,BEGINNING_DATE_OF_PERIOD, ENDING_DATE_OF_PERIOD);
+        assertEquals(0, taskService.listUnfinishedTasksOfUserEndingInPeriod(ID_USER_WITH_TASKS_TO_FINISH, BEGINNING_DATE_OF_PERIOD, ENDING_DATE_OF_PERIOD).size());
     }
 
 }

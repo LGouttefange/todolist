@@ -31,7 +31,7 @@
 <c:if test="${tasks != null && ! tasks.isEmpty()}">
     <section class="row">
         <div class="col s2 m2 l2">
-            <form action="user-finishTasks-${userId}" method="post">
+            <form action="user-finishTasks/${userId}" method="post">
                 <input type="button" class="waves-effect waves-light btn" onclick="submitFormIfConfirm(this.form)" value="Finir toutes les tâches de l'utilisateur">
 
             </form>

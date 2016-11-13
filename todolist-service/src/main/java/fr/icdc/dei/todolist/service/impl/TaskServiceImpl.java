@@ -3,7 +3,6 @@ package fr.icdc.dei.todolist.service.impl;
 import fr.icdc.dei.todolist.persistence.dao.TaskDao;
 import fr.icdc.dei.todolist.persistence.entity.Task;
 import fr.icdc.dei.todolist.service.TaskService;
-import fr.icdc.todolist.util.ProgressUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,13 +29,6 @@ public class TaskServiceImpl implements TaskService {
 		return null;
 	}
 
-	@Override
-	public List<Task> listUnfinishedTasksOfUser(long userId) {
-		return taskDao.findAllByUserId(userId).stream()
-				.filter(task -> taskIsNotFinished(task))
-				.collect(Collectors.toList());
-	}
-
 	private boolean taskIsNotFinished(Task task) {
 		return task.getEndingDate() == null;
 	}
@@ -46,10 +38,10 @@ public class TaskServiceImpl implements TaskService {
 		return taskDao.findAllByUserId(userId);
 	}
 
-	@Override
-	public void finishAllTasksOfUser(long idUser) {
-		for(Task unfinishedTask : listUnfinishedTasksOfUser(idUser)){
-			finishTask(unfinishedTask);
+
+	public void finishListOfTasks(List<Task> tasks){
+		for(Task task : tasks){
+			finishTask(task);
 		}
 	}
 
@@ -60,30 +52,28 @@ public class TaskServiceImpl implements TaskService {
 	}
 
 	@Override
-	public int getTaskProgressAsPercent(Task task) {
-		return ProgressUtil.currentAdvancementRatioAsPercent(task.getBeginningDate(), task.getEndingDate());
-	}
-
-	@Override
-	public List<Task> listUnfinishedTasksOfUserInPeriod(long userId, Date beginningDate, Date endingDate) {
-		return taskDao.findAllByUserId(userId).stream()
-				.filter(task -> taskIsNotFinished(task)
-						&& taskIsInPeriod(beginningDate, endingDate, task))
-				.collect(Collectors.toList());
-	}
-
-	@Override
-	public boolean taskIsInPeriod(Date beginningDate, Date endingDate, Task task) {
-		return beginningDate.before(task.getBeginningDate())
-				&& endingDate.after(task.getEstimatedEndingDate());
-	}
+    public void finishTasksOfUserEndingInPeriod(long userId, Date beginningDate, Date endingDate){
+        finishListOfTasks( listUnfinishedTasksOfUserEndingInPeriod(userId, beginningDate, endingDate) );
+    }
 
 	@Override
 	public List<Task> listUnfinishedTasksOfUserEndingInPeriod(long userId, Date beginningDate, Date endingDate) {
+
 		return taskDao.findAllByUserId(userId).stream()
-				.filter(task -> taskIsNotFinished(task)
-						&& taskEstimatedEndIsInPeriod(beginningDate, endingDate, task))
+				.filter(task -> unfinishedTaskEndsInPeriod(beginningDate, endingDate, task))
 				.collect(Collectors.toList());
+	}
+
+    @Override
+    public List<Task> listUnfinishedTasksOfUser(long userId) {
+        return taskDao.findAllByUserId(userId).stream()
+                .filter(task -> taskIsNotFinished(task))
+                .collect(Collectors.toList());
+    }
+
+    private boolean unfinishedTaskEndsInPeriod(Date beginningDate, Date endingDate, Task task) {
+		return taskIsNotFinished(task)
+                && taskEstimatedEndIsInPeriod(beginningDate, endingDate, task);
 	}
 
 	private boolean taskEstimatedEndIsInPeriod(Date beginningDate, Date endingDate, Task task) {

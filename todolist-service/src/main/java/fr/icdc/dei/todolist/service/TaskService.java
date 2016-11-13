@@ -11,19 +11,16 @@ public interface TaskService {
 
 	Task add(Task task);
 
-    List<Task> listUnfinishedTasksOfUser(long userId);
-
 	List<Task> listByUser(long userId);
 
-    void finishAllTasksOfUser(long idUser);
 
-	void finishTask(Task task);
 
-	int getTaskProgressAsPercent(Task task);
+    void finishTask(Task task);
 
-	List<Task> listUnfinishedTasksOfUserInPeriod(long userId, Date beginningDate, Date endingDate);
 
-	boolean taskIsInPeriod(Date beginningDate, Date endingDate, Task task);
+    void finishTasksOfUserEndingInPeriod(long userId, Date beginningDate, Date endingDate);
 
-	List<Task> listUnfinishedTasksOfUserEndingInPeriod(long userId, Date beginningDate, Date endingDate);
+    List<Task> listUnfinishedTasksOfUserEndingInPeriod(long userId, Date beginningDate, Date endingDate);
+
+    List<Task> listUnfinishedTasksOfUser(long userId);
 }

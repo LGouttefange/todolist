@@ -25,26 +25,22 @@ INSERT INTO user(name, USER_TYPE) VALUES('AddTaskWithLessThanTenTasksForFreeUser
 
 
 
-
-
---  testFinishAllTasksOfUser
--- ID_USER = 3L
-INSERT INTO user(name, USER_TYPE) VALUES('userWithFinishedAndUnfinishedTasks', 'USER_FREE');
--- UNFINISHED TASKS
--- ID_TASK = 5L
-INSERT INTO task(label, id_user) VALUES('testFinishAllTasksOfUserUnfinished', 3);
--- ID_TASK = 6L
-INSERT INTO task(label, id_user) VALUES('testFinishAllTasksOfUserUnfinished', 3);
--- FINISHED TASKS
--- ID_TASK = 7L
-INSERT INTO task(label, id_user, estimatedEndingDate) VALUES('testFinishAllTasksOfUserFinished', 3, '2010-04-02 15:28:22' );
--- ID_TASK = 8L
-INSERT INTO task(label, id_user, endingDate) VALUES('testFinishAllTasksOfUserFinished', 3, '2010-04-02 15:28:22' );
-
-
 --  testListUnfinishedTasksInDatePeriodDifferentThanUnfinishedTasksList
--- ID_USER = 4L
+--  testAllTasksEndingInPeriodTasksAreFinished
+-- ID_USER = 3L
 INSERT INTO user(name, USER_TYPE) VALUES('userWith', 'USER_FREE');
+-- ID_TASK = 9L
+INSERT INTO task(label, id_user,beginningDate,  estimatedEndingDate) VALUES('testListUnfinishedTasksInDatePeriodDifferentThanUnfinishedTasksList', 3, '2000-01-01 15:28:22', '2000-01-02 15:28:22' );
+-- ID_TASK = 10L
+INSERT INTO task(label, id_user,beginningDate,  estimatedEndingDate) VALUES('testListUnfinishedTasksInDatePeriodDifferentThanUnfinishedTasksList', 3, '2016-11-10 15:28:22', '2016-11-20 15:28:22' );
+-- ID_TASK = 11L
+INSERT INTO task(label, id_user,beginningDate,  estimatedEndingDate) VALUES('testListUnfinishedTasksInDatePeriodDifferentThanUnfinishedTasksList', 3, '2016-11-01 15:28:22', '2016-11-25 15:28:22' );
+
+
+
+--  testFinishAllTasksEndingInPeriodTasksAreFinished
+-- ID_USER = 4L
+INSERT INTO user(name, USER_TYPE) VALUES('userWithTasksToFinish', 'USER_FREE');
 -- ID_TASK = 9L
 INSERT INTO task(label, id_user,beginningDate,  estimatedEndingDate) VALUES('testFinishAllTasksOfUserFinished', 4, '2000-01-01 15:28:22', '2000-01-02 15:28:22' );
 -- ID_TASK = 10L
