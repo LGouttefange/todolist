@@ -1,4 +1,4 @@
-package fr.icdc.todolist.util;
+package fr.icdc.dei.todolist.util;
 
 import java.util.Calendar;
 import java.util.Date;

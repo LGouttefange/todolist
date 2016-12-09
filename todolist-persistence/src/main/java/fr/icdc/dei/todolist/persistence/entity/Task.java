@@ -1,6 +1,5 @@
 package fr.icdc.dei.todolist.persistence.entity;
 
-import fr.icdc.todolist.util.ProgressUtil;
 
 import javax.persistence.*;
 import java.text.SimpleDateFormat;
@@ -107,8 +106,5 @@ public class Task {
         return new SimpleDateFormat(EUROPEAN_DATE_FORMAT).format(date);
     }
 
-    public int progressAsPercent(){
-        return ProgressUtil.currentAdvancementRatioAsPercent(beginningDate, estimatedEndingDate);
-    }
 
 }

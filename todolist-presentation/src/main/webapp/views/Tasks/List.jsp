@@ -17,6 +17,8 @@
     </c:forEach>
 </ul>
 
+
 <%@include file="../common/css.jsp"%>
+
 </body>
 </html>

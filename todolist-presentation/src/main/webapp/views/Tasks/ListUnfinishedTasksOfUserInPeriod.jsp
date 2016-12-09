@@ -22,7 +22,7 @@
                 </span>
             </div>
             <div class="progress">
-                <div class="determinate" style="width: ${task.progressAsPercent()}%"></div>
+                <div class="determinate" style="width: ${currentProgressOfTasks.get(task.getId())}%"></div>
             </div>
         </div>
     </c:forEach>
@@ -41,7 +41,7 @@
 </c:if>
 <section class="row">
     <div class="col s2 m2 l2">
-        <a class="waves-effect waves-light btn" href="user">Retour</a>
+        <a class="waves-effect waves-light btn" href="<c:url value="/tasks/users" >">Retour</a>
     </div>
 
 </section>

@@ -4,6 +4,7 @@ import fr.icdc.dei.todolist.persistence.entity.Task;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 public interface TaskService {
 
@@ -23,4 +24,6 @@ public interface TaskService {
     List<Task> listUnfinishedTasksOfUserEndingInPeriod(long userId, Date beginningDate, Date endingDate);
 
     List<Task> listUnfinishedTasksOfUser(long userId);
+
+    Map<Long, Integer> listCurrentProgressOfTasksMappedByTaskID(List<Task> tasks);
 }

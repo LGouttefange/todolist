@@ -9,6 +9,11 @@
 	<artifactId>todolist-service</artifactId>
 
 	<dependencies>
+		<dependency>
+			<groupId>fr.icdc</groupId>
+			<artifactId>todolist-util</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 		<!-- TODOLIST PERSISTENCE -->
 		<dependency>
 			<groupId>fr.icdc</groupId>
@@ -103,6 +108,11 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>fr.icdc</groupId>
+			<artifactId>todolist-util</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 </project>

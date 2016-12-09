@@ -8,10 +8,6 @@
     </parent>
     <artifactId>todolist-persistence</artifactId>
     <dependencies>
-        <dependency>
-            <groupId>fr.icdc</groupId>
-            <artifactId>todolist-progressUtil</artifactId>
-        </dependency>
         <!-- SPRING DATA -->
         <dependency>
             <groupId>org.springframework.data</groupId>
