@@ -2,7 +2,6 @@ package fr.icdc.dei.todolist.persistence.entity;
 
 
 import javax.persistence.*;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
@@ -94,17 +93,6 @@ public class Task {
         this.category = category;
     }
 
-    public String getBeginningDateWithoutTime() {
-        return formatDate(beginningDate);
-    }
-
-    public String getEstimatedEndingDateWithoutTime() {
-        return formatDate(estimatedEndingDate);
-    }
-
-    private String formatDate(Date date) {
-        return new SimpleDateFormat(EUROPEAN_DATE_FORMAT).format(date);
-    }
 
 
 }

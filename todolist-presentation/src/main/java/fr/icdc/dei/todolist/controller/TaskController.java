@@ -38,25 +38,27 @@ public class TaskController {
         return page;
     }
 
+    private ModelAndView listTasksWithCurrentProgress(List<Task> listTasks) {
+        ModelAndView page = new ModelAndView("Tasks/ListUnfinishedTasksOfUser");
+        page.addObject("tasks", listTasks);
+        page.addObject("currentProgressOfTasks", taskService.listCurrentProgressOfTasksMappedByTaskID(listTasks));
+        return page;
+    }
+
     @RequestMapping(value = "/users/{userId}", method = RequestMethod.GET)
     private ModelAndView listTasksOfUser(@PathVariable long userId) {
-            ModelAndView page = new ModelAndView("Tasks/ListUnfinishedTasksOfUser");
-            page.addObject("tasks", taskService.listByUser(userId));
-            return page;
+        return listTasksWithCurrentProgress(taskService.listByUser(userId));
 
     }
-    @RequestMapping(value = "/users/{userId}", method = RequestMethod.GET,  params="beginningDate")
+
+    @RequestMapping(value = "/users/{userId}", method = RequestMethod.GET, params = "beginningDate")
     private ModelAndView listTasksOfUserEndingInPeriod(@PathVariable long userId,
-                                                       @RequestParam  Date beginningDate,
-                                                       @RequestParam  Date endingDate) {
+                                                       @RequestParam Date beginningDate,
+                                                       @RequestParam Date endingDate) {
 
         this.beginningDate = beginningDate;
         this.endingDate = endingDate;
-        List<Task> listTasks = taskService.listUnfinishedTasksOfUserEndingInPeriod(userId, beginningDate, endingDate);
-        ModelAndView page = new ModelAndView("Tasks/ListUnfinishedTasksOfUser");
-        page.addObject("currentProgressOfTasks", taskService.listCurrentProgressOfTasksMappedByTaskID(listTasks));
-        page.addObject("tasks", listTasks);
-        return page;
+        return listTasksWithCurrentProgress(taskService.listUnfinishedTasksOfUserEndingInPeriod(userId, beginningDate, endingDate));
     }
 
     @RequestMapping(value = "/users/finishTasks/{userId}", method = RequestMethod.POST)

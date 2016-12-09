@@ -16,10 +16,10 @@
             <h3>${task.label}</h3>
             <div class="row">
                 <span class="col s6 m4 l2">
-                        ${task.getBeginningDateWithoutTime()}
+                        <fmt:formatDate value="${task.getBeginningDate()}" pattern="dd/MM/yyyy" />
                 </span>
                 <span class="col s6   m4 offset-m4 l3 offset-l6">
-                        ${task.getEstimatedEndingDateWithoutTime()}
+                        <fmt:formatDate value="${task.getEstimatedEndingDate()}" pattern="dd/MM/yyyy" />
                 </span>
             </div>
             <div class="progress">

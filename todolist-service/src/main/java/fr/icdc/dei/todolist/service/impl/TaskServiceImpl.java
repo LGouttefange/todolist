@@ -69,7 +69,7 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public List<Task> listUnfinishedTasksOfUser(long userId) {
         return taskDao.findAllByUserId(userId).stream()
-                .filter(task -> taskIsNotFinished(task))
+                .filter(this::taskIsNotFinished)
                 .collect(Collectors.toList());
     }
 
